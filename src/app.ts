@@ -11,11 +11,11 @@ const app: Express = express();
 app.use(morgan("combined"));
 
 // respond to GET request at endpoint "/" with message
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => { // i was getting an error of req being declared but value is never read
     res.send("Hello, world!");
 })
 
-app.get("/api/v1/health", (req, res) => {
+app.get("/api/v1/health", (_req, res) => { // i was getting an error of req being declared but value is never read
     res.json({
         status: "OK",
         uptime: process.uptime(),
