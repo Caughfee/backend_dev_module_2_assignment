@@ -100,3 +100,34 @@ export const createBranch = async (
         next(error);
     }
 }
+
+/**
+ * updates an existing branch
+ * @param req - The express Request
+ * @param res - The express Response
+ * @param next - The express middleware chaining function
+ */
+export const updateBranch = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const id = Number(req.params.id);
+
+        // extract update fields
+        const { name, address, phone} = req.body;
+
+        // create update data object with only the fields that can be updated
+        const updateData = { name, address, phone };
+
+        const updatedBranch: Branch = await branchesService.updateBranch(id, updateData);
+
+        res.status(200).json({
+            message: "Branch updated successfully",
+            data: updatedBranch,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
