@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as branchesService from "../services/branchesService";
+import { Branch } from "src/data/branches";
 
 /**
  * Manages requests and reponses to retrieve all Items
@@ -50,3 +51,52 @@ export const getBranchById = async (
         next(error);
     }
 };
+
+/**
+ * Creates a branch
+ * @param req - The express Request
+ * @param res  - The express Response
+ * @param next - The express middleware chaining function
+ * @returns The new branch
+ */
+export const createBranch = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        // basic validation
+        if (!req.body.name) {
+            res.status(400).json({
+                message: "Branch name is required",
+            });
+            return;
+        }
+
+        if (!req.body.address) {
+            res.status(400).json({
+                message: "Branch address is required",
+            });
+            return;
+        }
+
+        if (!req.body.phone) {
+            res.status(400).json({
+                message: "Branch phone number is required",
+            });
+            return;
+        }
+
+        // Extract only the fields we need
+        const { name, address, phone } = req.body;
+        const branchData = { name, address, phone};
+
+        const newBranch: Branch = await branchesService.createBranch(branchData);
+        res.status(201).json({
+            message: "Branch created successfully",
+            data: newBranch
+        })
+    } catch (error) {
+        next(error);
+    }
+}
