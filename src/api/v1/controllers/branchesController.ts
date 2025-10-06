@@ -131,3 +131,25 @@ export const updateBranch = async (
         next(error);
     }
 };
+
+/**
+ * Deletes a branch by getting the ID
+ * @param req - The express Request
+ * @param res - The express Response
+ * @param next - The express middleware chaining function
+ */
+export const deleteBranch = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const id = Number(req.params.id);
+        await branchesService.deleteBranch(id);
+        res.status(200).json({
+            message: "Branch deleted successfully",
+        });
+    } catch (error) {
+        next(error);
+    }
+}
