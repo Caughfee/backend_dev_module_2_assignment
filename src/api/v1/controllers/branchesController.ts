@@ -22,4 +22,31 @@ export const getAllBranches = async (
     } catch (error: unknown) {
         next(error);
     }
-}
+};
+
+/**
+ * Gets a branch by ID
+ * @param req - The express Request
+ * @param res - The express Response
+ * @param next - The express middleware chaining function
+ * @returns 
+ */
+export const getBranchById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const id = Number(req.params.id);
+
+        const branch = await branchesService.getBranchById(id);
+
+        res.status(200).json({
+            message: "Branch retrieved successfully",
+            data: branch,
+        });
+
+    } catch (error: unknown) {
+        next(error);
+    }
+};
