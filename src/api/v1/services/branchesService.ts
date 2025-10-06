@@ -57,7 +57,7 @@ export const updateBranch = async (
     const index: number = branches.findIndex((b: Branch) => b.id === id);
 
     if (index === -1) {
-        throw new Error('Branch with ID ${id} not found');
+        throw new Error(`Branch with ID ${id} not found`);
     }
 
     branches[index] = {
@@ -66,4 +66,18 @@ export const updateBranch = async (
     };
 
     return structuredClone(branches[index]);
+}
+
+/**
+ * 
+ * @param id - The ID of the branch
+ */
+export const deleteBranch = async (id: number): Promise<void> => {
+    const index: number = branches.findIndex((branch: Branch) => branch.id === id);
+
+    if (index === -1) {
+        throw new Error (`Branch with ID ${id} not found`);
+
+    };
+    branches.splice(index, 1);
 }
