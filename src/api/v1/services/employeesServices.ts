@@ -19,3 +19,31 @@ export const getEmployeeById = async (id: number): Promise<Employee> => {
   }
   return structuredClone(employee);
 };
+
+/**
+ * Creates a new employee
+ * @param employeeData - The data for the new employee
+ * @returns The created employee with generated ID
+ */
+export const createEmployee = async (employeeData: {
+    name: string;
+    position: string;
+    department: string;
+    email: string;
+    phone: string;
+    branchId: number;
+}): Promise<Employee> => {
+    const newEmployee: Employee = {
+        id: Date.now(), // used for a generated unique ID
+        name: employeeData.name,
+        position: employeeData.position,
+        department: employeeData.department,
+        email: employeeData.email,
+        phone: employeeData.phone,
+        branchId: employeeData.branchId, 
+    }
+// pushes the new branch to the array
+    employees.push(newEmployee);
+
+    return structuredClone(newEmployee)
+};

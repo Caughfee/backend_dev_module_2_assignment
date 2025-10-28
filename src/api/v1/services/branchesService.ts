@@ -11,7 +11,7 @@ export const getAllBranches = async (): Promise<Branch[]> => {
 /**
  * Retrieves a single branch by ID
  * @param id - the ID for the branch
- * @returns the ID based of the branch
+ * @returns the branch based of the ID
  */
 export const getBranchById = async (id: number): Promise<Branch> => {
   const branch = branches.find((b) => b.id === id);
@@ -22,9 +22,9 @@ export const getBranchById = async (id: number): Promise<Branch> => {
 };
 
 /**
- * Creates a new item
+ * Creates a new branch
  * @param branchData - The data for the new branch
- * @returns The created item with generated ID
+ * @returns The created branch with generated ID
  */
 export const createBranch = async (branchData: {
     name: string;
